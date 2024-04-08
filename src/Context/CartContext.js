@@ -10,6 +10,9 @@ export const CartoContext = createContext({
     ],
     addCart: (cart) => { },
     deleteCart: (id) => { },
+    addShowPaginationItems: (carts) => { },
+    handleFav: (cart) => { }, handleCart: (cart) => { },
+    addUser:(user) => { }
     
 })
 export const CartoProvider = CartoContext.Provider

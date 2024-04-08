@@ -18,11 +18,17 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
+import { CiTrash } from "react-icons/ci";
+
 
 
 const Nav = () => {
-    const { carts } = useCarto()
-    console.log(carts);
+    const { carts, deleteCart } = useCarto()
+    const handleDelete = (id) => {
+        deleteCart(id)
+        console.log((id));
+    }
+    // console.log(carts);
 
     return (
         <div className=' bg-slate-600 text-white sticky top-0 duration-500 z-50'>
@@ -91,15 +97,17 @@ const Nav = () => {
                                 <PopoverContent>
                                     {
                                         carts.map((item) => (
-                                            <div key={item.cart.idMeal} className='flex items-center gap-3 border-b-2 my-2 p-2 hover:bg-orange-300 rounded-xl shadow-md'>
+                                            <div key={item.cart.id} className='flex items-center gap-3 border-b-2 my-2 p-2 hover:bg-orange-300 rounded-xl shadow-md'>
                                                 <div className='w-[40px]'>
                                                     <img src={item.cart.strMealThumb} alt="" />
                                                 </div>
                                                 <span>{item.cart.strMeal}</span>
+                                                <span>{item.cart.price}</span>
+                                                <span className="cursor-pointer" onClick={() => handleDelete(item.cart.id)}><CiTrash /></span>
                                             </div>
                                         ))
                                     }
-                                    <Link className='flex justify-center bg-orange-500 rounded-lg hover:bg-orange-400' to={'/checkout'}> Check Out</Link>
+                                    <Link to={'/checkout'} className='flex justify-center bg-orange-500 rounded-lg hover:bg-orange-400'> Check Out</Link>
                                 </PopoverContent>
                             </Popover>
 

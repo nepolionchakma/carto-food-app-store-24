@@ -1,32 +1,14 @@
 import React from 'react';
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { FaAnglesRight } from "react-icons/fa6";
+import { Link, useLocation } from 'react-router-dom';
 
 const Breadcrumbs = () => {
-    return (
-        <div className=''>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+    const location = useLocation();
 
+    return (
+        <div className='flex gap-3 text-center max-w-6xl p-4 mx-auto justify-center my-6'>
+            <Link to='/' className='flex items-center justify-center uppercase'>Home -</Link>
+            <Link to={location.pathname}>{location.pathname}</Link>
         </div>
     );
 };

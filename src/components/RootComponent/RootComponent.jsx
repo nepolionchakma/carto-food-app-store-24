@@ -1,14 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Nav from '../Nav/Nav';
-import Breadcrumbs from '../Breadcrumb/Breadcrumb';
+import Footer from '../Footer/Footer';
 
 const RootComponent = () => {
     return (
         <>
             <Nav />
-            <Breadcrumbs />
             <Outlet />
+            <Footer />
         </>
     );
 };

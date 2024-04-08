@@ -4,13 +4,14 @@ import {
     CardFooter,
     CardHeader
 } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 // https://www.themealdb.com/api/json/v1/1/list.php?i
 const HomeItem = ({ items }) => {
-    const { strMeal, strMealThumb } = items;
+    const { strMeal, strMealThumb, idMeal } = items;
     const string = strMeal.slice(0, 19);
     return (
-        <div>
+        <Link to={`/details/${idMeal}`}>
             <Card >
                 <CardHeader>
                     <h4>{string}</h4>
@@ -25,7 +26,7 @@ const HomeItem = ({ items }) => {
                 </CardFooter>
             </Card>
 
-        </div>
+        </Link>
     );
 };
 
