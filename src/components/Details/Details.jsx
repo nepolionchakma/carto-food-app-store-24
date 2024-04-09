@@ -38,7 +38,8 @@ const Details = () => {
             }
             )
     }, [id])
-    // console.log(nullCheck?.length > 0, nullCheck?.meals?.length > 0);
+
+    console.log(data.idMeal, id);
     const { addCart, addFromCart } = useCarto()
 
     const handleAddCart = () => {
@@ -49,7 +50,7 @@ const Details = () => {
     return (
         <div>
             {
-                nullCheck?.length > 0 || nullCheck?.meals?.length > 0 ?
+                data.idMeal == id ?
                     <div className='max-w-6xl mx-auto'>
                         <Breadcrumbs />
                         <h4 className='text-center font-bold text-xl my-4' id='#home'>Details : {strMeal}</h4>

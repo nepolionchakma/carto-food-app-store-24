@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
+import LogIn from './components/LogIn/LogIn';
 
 function App() {
   const [carts, setCarts] = useState([])
@@ -110,12 +111,17 @@ function App() {
           element: <ErrorPage />,
         },
         {
+          path: '/login',
+          element: <LogIn />
+        },
+        {
           path: '/shops',
           element: <Shops />
         },
         {
           path: 'details/:idMeal',
-          element: <Details />
+          element: <Details />,
+          errorElement: <ErrorPage />,
         },
         {
           path: '/checkout',

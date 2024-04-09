@@ -14,7 +14,6 @@ const ErrorPage = () => {
             }
             )
     }, [])
-    console.log(data);
     return (
         <div>
             <div className='grid md:grid-cols-2 gap-4 max-w-3xl justify-center mx-auto m-9 p-9 items-center'>
@@ -31,7 +30,7 @@ const ErrorPage = () => {
                 <div>
                     <h4 className='text-center font-bold text-xl'>Random</h4>
                     {
-                        data.map(item => <RelatedFood key={item.idCategory} strCategory={item.strCategory} />)
+                        data.map((item, i) => <RelatedFood key={i} strCategory={item.strCategory} />)
                     }
                 </div>
             </div>
