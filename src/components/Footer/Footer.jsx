@@ -3,6 +3,8 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
+import { FaFacebook } from "react-icons/fa";
+import { FaGithub, FaTelegram, FaTwitch, FaTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
     const [currentTime, setCurrentTime] = useState(moment());
@@ -29,10 +31,7 @@ const Footer = () => {
                             </div>
                             <span className='uppercase tracking-tighter font-bold md:inLinkne-flex xl:inLinkne-flex duration-500' >carto</span>
                         </Link>
-                        <div className=''>
-                            <p>{currentTime.format('hh:mm:ss A')}</p>
-                            <p>{format(myDate, 'dd/MM/yyyy')}</p>
-                        </div>
+
                     </div>
                     <div className='grid md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-4'>
                         <div>
@@ -55,12 +54,16 @@ const Footer = () => {
                         </div>
                         <div>
                             <h5 className='uppercase opacity-50 mb-3'>Social</h5>
-                            <ul className='tracking-tighter flex flex-col gap-2'>
-                                <li><Link to='#' className='hover:text-orange-600'>Twitter</Link></li>
-                                <li><Link to='#' className='hover:text-orange-600'>Facebook</Link></li>
-                                <li><Link to='#' className='hover:text-orange-600'>GitHub</Link></li>
-                                <li><Link to='#' className='hover:text-orange-600'>Telegram</Link></li>
+                            <ul className='tracking-tighter flex  gap-2'>
+                                <li><Link to='#' className='hover:text-orange-600'><FaTwitter /></Link></li>
+                                <li><Link to='#' className='hover:text-orange-600'><FaFacebook /></Link></li>
+                                <li><Link to='#' className='hover:text-orange-600'><FaGithub /></Link></li>
+                                <li><Link to='#' className='hover:text-orange-600'><FaTelegram /></Link></li>
                             </ul>
+                            <div className='mt-7'>
+                                <p>{currentTime.format('hh:mm:ss A')}</p>
+                                <p>{format(myDate, 'dd/MM/yyyy')}</p>
+                            </div>
                         </div>
                     </div>
                     <hr className='border-1' />

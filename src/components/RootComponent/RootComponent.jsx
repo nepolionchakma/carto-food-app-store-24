@@ -11,9 +11,9 @@ const RootComponent = () => {
         <>
             <Nav />
             <Outlet />
-            <Footer />
             <ScrollToTop smooth color="orange" className='hover:text-white bg-orange-600 hover:bg-orange-500 h-10 w-10 rounded-full p-3 flex items-center font-bold duration-500' />
             <ToastContainer />
+            <Footer />
         </>
     );
 };

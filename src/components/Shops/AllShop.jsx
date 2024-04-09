@@ -47,7 +47,7 @@ const AllShop = ({ items }) => {
 
     return (
         <div className='relative group'>
-            <div className='absolute bottom-0 bg-opacity-50 bg-slate-200 flex flex-col w-full opacity-0 group-hover:opacity-100 items-center hover:!opacity-100 duration-1000'>
+            <div className='absolute bottom-0 bg-opacity-50 bg-orange-200 flex flex-col w-full opacity-0 group-hover:opacity-100 items-center hover:!opacity-100 duration-1000 p-2'>
                 <div className='my-3'>
                     <p className='font-bold'>{strMeal}</p>
                 </div>
@@ -61,7 +61,7 @@ const AllShop = ({ items }) => {
                 </div>
             </div>
             <Link to={`/details/${idMeal}`} className='cursor-pointer ' >
-                <Card className='shadow-xl'>
+                <Card className='shadow-xl hover:bg-orange-400'>
 
                     <CardHeader>
                         <CardTitle></CardTitle>

@@ -17,7 +17,7 @@ const Slider = () => {
     }, [])
     // console.log(images);
     return (
-        <div className='max-w-7xl mx-auto py-9 px-4'>
+        <div className='max-w-7xl mx-auto py-9 px-4 '>
             <div className='py-8 flex flex-col items-center gap-4 '>
                 <h4 className='text-3xl font-bold uppercase text-orange-600'>Recipe Gallery</h4>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam inventore sunt nihil nesciunt laudantium soluta?</p>
@@ -44,7 +44,7 @@ const Slider = () => {
                     <CarouselNext />
                 </Carousel>
             </div>
-            <hr className='border-1' />
+            {/* <hr className='border-1' /> */}
         </div>
     );
 };

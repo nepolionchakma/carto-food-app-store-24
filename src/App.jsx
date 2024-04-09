@@ -15,6 +15,8 @@ import ErrorPage from './components/404/ErrorPage';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Contact from './components/Contact/Contact';
+import About from './components/About/About';
 
 function App() {
   const [carts, setCarts] = useState([])
@@ -118,6 +120,14 @@ function App() {
         {
           path: '/adduser',
           element: <AddUser />
+        },
+        {
+          path: '/about',
+          element: <About />
+        },
+        {
+          path: '/contact',
+          element: <Contact />
         },
       ]
     },
