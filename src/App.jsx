@@ -106,6 +106,10 @@ function App() {
           element: <Home />
         },
         {
+          path: '*',
+          element: <ErrorPage />,
+        },
+        {
           path: '/shops',
           element: <Shops />
         },

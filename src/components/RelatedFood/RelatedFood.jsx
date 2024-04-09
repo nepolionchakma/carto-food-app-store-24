@@ -17,7 +17,7 @@ const RelatedFood = (strCategory) => {
     // console.log(sliceRelatedItem);
     return (
         <div className=' my-7 m-6'>
-            <h4 className='text-center text-2xl font-bold my-6 underline'>Related food </h4>
+            <h4 className='text-center text-2xl font-bold my-6 underline tracking-tighter'>Related Food </h4>
             <div className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
                     sliceRelatedItem?.map(items => <AllShop key={items.idMeal} items={items} />)
