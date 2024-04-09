@@ -13,6 +13,9 @@ import Checkout from './components/Checkout/Checkout';
 import AddUser from './components/AddUser/AddUser';
 import ErrorPage from './components/404/ErrorPage';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const [carts, setCarts] = useState([])
   const [users, setUsers] = useState([])
@@ -26,7 +29,7 @@ function App() {
     setCarts((prev) => ([...prev, { cart }]))
   }
   const deleteCart = (id) => {
-    setCarts((prev) => prev.filter((item) => item.cart.id !== id))
+    setCarts((prev) => prev.filter((item) => item.cart.idMeal !== id))
   }
 
   // Add User
@@ -57,7 +60,28 @@ function App() {
     localStorage.setItem('users', JSON.stringify(users))
   }, [users])
 
+  // toast
+  const addFromCart = () => toast.success('Add success', {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
 
+  const deleteFromCart = () => toast.success('Delete success', {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
 
   // fav ,cart add
   const [favorite, setFavorite] = useState(false)
@@ -100,8 +124,9 @@ function App() {
   ]);
   return (
     <>
-      <CartoProvider value={{ carts, addCart, deleteCart, paginationItem, addShowPaginationItems, handleFav, handleCart, favorite, cartFav, users, addUser, handleDeleteUser }}>
+      <CartoProvider value={{ carts, addCart, deleteCart, paginationItem, addShowPaginationItems, handleFav, handleCart, favorite, cartFav, users, addUser, handleDeleteUser, ToastContainer, addFromCart, deleteFromCart }}>
         <RouterProvider router={router} />
+        {/* <ToastContainer /> */}
       </CartoProvider>
     </>
   )

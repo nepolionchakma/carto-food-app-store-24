@@ -23,12 +23,11 @@ import { CiTrash } from "react-icons/ci";
 
 
 const Nav = () => {
-    const { carts, deleteCart } = useCarto()
+    const { carts, deleteCart, deleteFromCart } = useCarto()
     const handleDelete = (id) => {
         deleteCart(id)
-        console.log((id));
+        deleteFromCart()
     }
-    // console.log(carts);
 
     return (
         <div className=' bg-slate-600 text-white sticky top-0 duration-500 z-50'>
@@ -96,19 +95,28 @@ const Nav = () => {
                                 </PopoverTrigger>
                                 <PopoverContent>
                                     {
-                                        carts.map((item) => (
-                                            <div key={item.cart.id} className='flex items-center gap-3 border-b-2 my-2 p-2 hover:bg-orange-300 rounded-xl shadow-md'>
-                                                <div className='w-[40px]'>
-                                                    <img src={item.cart.strMealThumb} alt="" />
-                                                </div>
-                                                <span>{item.cart.strMeal}</span>
-                                                <span>{item.cart.price}</span>
-                                                <span className="cursor-pointer" onClick={() => handleDelete(item.cart.id)}><CiTrash /></span>
+                                        carts.length ? <div>
+                                            {
+                                                carts.map((item) => (
+                                                    <div key={item.cart.id} className='flex items-center gap-3 border-b-2 my-2 p-2 hover:bg-orange-300 rounded-xl shadow-md'>
+                                                        <div className='w-[40px]'>
+                                                            <img src={item.cart.strMealThumb} alt="" />
+                                                        </div>
+                                                        <span>{item.cart.strMeal}</span>
+                                                        <span>{item.cart.price}</span>
+                                                        <span className="cursor-pointer" onClick={() => handleDelete(item.cart.idMeal)}><CiTrash /></span>
+                                                    </div>
+                                                ))
+                                            }
+                                            <Link to={'/checkout'} className='flex justify-center bg-orange-500 rounded-lg hover:bg-orange-400'> Check Out</Link>
+                                        </div>
+                                            :
+                                            <div>Empty Cart
+                                                <p>Add Cart Please</p>
                                             </div>
-                                        ))
                                     }
-                                    <Link to={'/checkout'} className='flex justify-center bg-orange-500 rounded-lg hover:bg-orange-400'> Check Out</Link>
                                 </PopoverContent>
+
                             </Popover>
 
                             {/* --------- */}

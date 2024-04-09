@@ -8,6 +8,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { Link } from 'react-router-dom';
 
 
 const Cover = () => {
@@ -29,17 +30,11 @@ const Cover = () => {
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus pariatur asperiores id totam veritatis.</p>
                     </CardContent>
                     <CardFooter>
-                        <button className='uppercase mt-9 px-6 py-4 bg-orange-500 rounded-md font-bold'>Buy Now</button>
+                        <Link to={'/shops'}>
+                            <button className='uppercase mt-9 px-6 py-4 bg-orange-500 rounded-md font-bold text-white'>Buy Now</button>
+                        </Link>
                     </CardFooter>
                 </Card>
-
-
-                <div >
-
-
-
-
-                </div>
             </div>
         </div>
     );

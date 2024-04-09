@@ -11,12 +11,10 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { CiTrash } from 'react-icons/ci';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 const AddUser = () => {
-    const { users, addUser, handleDeleteUser } = useCarto()
+    const { users, addUser, handleDeleteUser, deleteFromCart, addFromCart } = useCarto()
     const [firstName, setFirstName] = useState('')
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -27,28 +25,22 @@ const AddUser = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [userType, setUserType] = useState('Regular User')
-    // notify---------
-    const notify = () => toast.success('Add user successfully', {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    });
 
     const addUserInfo = (e) => {
         e.preventDefault()
         addUser({ id: Date.now(), firstName, middleName, lastName, country, email, organization, designation, password, confirmPassword, userType })
-        notify()
-        setFirstName(''), setMiddleName(''), setLastName(''), setEmail(''), setOrganization(''), setDesignation(''), setPassword(''), setConfirmPassword('')
+        addFromCart()
+        setFirstName(''); setMiddleName(''); setLastName(''); setEmail(''); setOrganization(''); setDesignation(''), setPassword(''); setConfirmPassword('');
     }
+    const deleteUserInfo = (id) => {
+        handleDeleteUser(id)
+        deleteFromCart()
+    }
+
     return (
         <div className='max-w-6xl mx-auto p-5 my-4'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-5 my-5'>
-                <form onSubmit={addUserInfo} className="border-b border-gray-900/10 pb-12">
+                <form onSubmit={addUserInfo} className="  border-gray-900/10 pb-12">
                     <h2 className="text-center text-xl my-5 font-semibold leading-7 text-gray-900">Add User</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
 
@@ -233,8 +225,7 @@ const AddUser = () => {
                         </div>
 
                     </div>
-                    <Button type='submit' className='my-5'>Add User</Button>
-                    <ToastContainer />
+                    <Button type='submit' className=' uppercase mt-9 px-6 py-4 bg-orange-500 rounded-md font-bold text-white'>Add User</Button>
                 </form>
                 <div>
                     <h4 className="text-center text-xl my-5 underline font-semibold leading-7 text-gray-900">User List</h4>
@@ -259,31 +250,14 @@ const AddUser = () => {
                                     </TableCell>
                                     <TableCell>{"*****" + user.email.slice(5,)}</TableCell>
                                     <TableCell className="">{user.userType}</TableCell>
-                                    <TableCell className=""><CiTrash onClick={() => handleDeleteUser(user.id)} /></TableCell>
+                                    <TableCell className=""><CiTrash onClick={() => deleteUserInfo(user.id)} /></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
 
-                        {/* {
-                            users?.map((user) => (
-                                <div>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell className="font-medium">{user.id}</TableCell>
-                                            <TableCell>{user.firstName}</TableCell>
-                                            <TableCell>Credit Card</TableCell>
-                                            <TableCell className="text-right">$250.00</TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </div>
-                            ))
-                        } */}
-
-
-
                     </Table>
 
-                    {console.log(users)}
+                    {/* {console.log(users)} */}
                 </div>
             </div>
         </div>

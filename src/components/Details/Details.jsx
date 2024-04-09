@@ -34,20 +34,11 @@ const Details = () => {
             .then(data => setData(data?.meals[0]))
     }, [id])
     // const [cart, setCart] = useState([])
-    const { addCart } = useCarto()
-    const notify = () => toast.success('Add to cart success', {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    });
+    const { addCart, addFromCart } = useCarto()
+
     const handleAddCart = () => {
         addCart({ strMealThumb, strMeal, idMeal, id: Date.now(), price: Math.ceil(Math.random() * 100) })
-        notify()
+        addFromCart()
     }
 
     return (
@@ -79,7 +70,6 @@ const Details = () => {
                     <Button
                         onClick={handleAddCart}
                     >add to cart</Button>
-                    <ToastContainer />
                 </div>
                 <div>
                     <h4 className='text-center font-bold text-xl my-4'>Description</h4>
