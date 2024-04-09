@@ -16,7 +16,7 @@ const Shops = () => {
     const showDataPerPage = loadedFoodData?.slice(firstIndex, lastIndex);
     const numerOfPage = Math.ceil(loadedFoodData.length / itemPerPage);
     const numbers = [...Array(numerOfPage + 1).keys()].slice(1);
-    const [disableAttr, setDisableAttr] = useState(false)
+    const [isLoading, setIsLoading] = useState(true);
     const previousPage = (e) => {
         e.preventDefault()
         if (currentPage !== 1) {
@@ -43,6 +43,7 @@ const Shops = () => {
         const res = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i');
         const dataLoad = await res.json();
         setData(dataLoad?.meals)
+        setIsLoading(false)
     }
     useEffect(() => {
         foodData();
@@ -51,7 +52,13 @@ const Shops = () => {
     return (
         <div className='max-w-7xl mx-auto p-5'>
             <Breadcrumbs />
-            <div className='flex gap-4'>
+            {
+                isLoading && <span className=' flex flex-col justify-center items-center'>
+                    <img src="https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif" alt="" />
+                    <img src="https://assets-v2.lottiefiles.com/a/ba3f8d16-1161-11ee-9146-ff1c243cfdd2/8M5yJUdrZC.gif" alt="" />
+                </span>
+            }
+            <div className='flex gap-4 duration-700'>
                 <div className='w-[300px] h-[600px] sticky top-[100px] bg-slate-300 p-3'>
                     <label className=' '>Category</label>
                     <hr />
