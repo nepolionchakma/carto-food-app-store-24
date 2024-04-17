@@ -1,28 +1,52 @@
 import { useEffect, useState } from 'react';
 import {
-  createBrowserRouter,
   RouterProvider,
+  createBrowserRouter,
+  useNavigate,
 } from "react-router-dom";
 import './App.css';
+import { CartoProvider } from './Context/CartContext';
+import ErrorPage from './components/404/ErrorPage';
+import AddUser from './components/AddUser/AddUser';
+import Checkout from './components/Checkout/Checkout';
 import Details from './components/Details/Details';
 import Home from './components/Home/Home';
 import RootComponent from './components/RootComponent/RootComponent';
 import Shops from './components/Shops/Shops';
-import { CartoProvider, useCarto } from './Context/CartContext';
-import Checkout from './components/Checkout/Checkout';
-import AddUser from './components/AddUser/AddUser';
-import ErrorPage from './components/404/ErrorPage';
-
+import { supabase } from './Context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Contact from './components/Contact/Contact';
 import About from './components/About/About';
-import LogIn from './components/LogIn/LogIn';
+import Contact from './components/Contact/Contact';
+import SignUpLogIn from './components/SignUpLogIn/SignUpLogIn';
+import { AuthProvider } from './Context/AuthContext';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const [carts, setCarts] = useState([])
   const [users, setUsers] = useState([])
   const [paginationItem, setPaginationItem] = useState([])
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    // get session
+    const session = supabase.auth.getSession();
+    setUser(session?.user ?? null);
+    setLoading(false);
+
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, []);
+  console.log(user?.user_metadata?.full_name)
+
   // console.log(paginationItem, 'item check app.jsx');
   const addShowPaginationItems = (cartsPagination) => {
     console.log(cartsPagination, 'cartpagination app.jsx');
@@ -86,6 +110,7 @@ function App() {
     theme: "light",
   });
 
+
   // fav ,cart add
   const [favorite, setFavorite] = useState(false)
   const [cartFav, setCartFav] = useState(false)
@@ -95,6 +120,49 @@ function App() {
   const handleCart = () => {
     setCartFav(!cartFav)
   }
+  // Auth
+  const register = async (fullName, email, password) => {
+    try {
+
+      const { data, error } = await supabase.auth.signUp(
+        {
+          email: email,
+          password: password,
+          options: {
+            data: {
+              full_name: fullName,
+            }
+          }
+        }
+      )
+      if (data) {
+
+      }
+      if (error) return alert(error);
+      return data
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const logIn = async (email, password) => {
+    try {
+
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      })
+      if (error) throw error
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
+  const logOut = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
+  }
+
   // Router-------------------------------------
   const router = createBrowserRouter([
     {
@@ -111,8 +179,12 @@ function App() {
           element: <ErrorPage />,
         },
         {
-          path: '/login',
-          element: <LogIn />
+          path: '/register',
+          element: <SignUpLogIn />
+        },
+        {
+          path: '/profile',
+          element: <Profile />
         },
         {
           path: '/shops',
@@ -145,8 +217,9 @@ function App() {
   return (
     <>
       <CartoProvider value={{ carts, addCart, deleteCart, paginationItem, addShowPaginationItems, handleFav, handleCart, favorite, cartFav, users, addUser, handleDeleteUser, ToastContainer, addFromCart, deleteFromCart }}>
-        <RouterProvider router={router} />
-        {/* <ToastContainer /> */}
+        <AuthProvider value={{ register, logIn, user, logOut }}>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </CartoProvider>
     </>
   )

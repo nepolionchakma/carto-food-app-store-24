@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { CiMenuBurger, CiShoppingCart, CiTextAlignJustify } from "react-icons/ci";
-import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../assets/logo.png'
+import { useCarto } from '@/Context/CartContext';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,15 +7,21 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { useCarto } from '@/Context/CartContext';
+} from "@/components/ui/dropdown-menu";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
+import { CiMenuBurger, CiShoppingCart } from "react-icons/ci";
+import { IoMdLogIn, IoMdLogOut } from "react-icons/io";
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import Logo from '../../assets/logo.png';
 
+import { useAuth } from '@/Context/AuthContext';
 import { CiTrash } from "react-icons/ci";
+import { BiSolidLogInCircle, BiSolidLogOutCircle } from "react-icons/bi";
+import { Button } from '../ui/button';
 
 
 
@@ -27,6 +30,13 @@ const Nav = () => {
     const handleDelete = (id) => {
         deleteCart(id)
         deleteFromCart()
+    }
+    const navigate = useNavigate()
+    const { user, logOut } = useAuth()
+    console.log(!user)
+    const handleLogOut = () => {
+        logOut()
+        navigate('/register')
     }
 
     return (
@@ -121,11 +131,35 @@ const Nav = () => {
 
                             {/* --------- */}
                         </div>
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
 
+
+                        <div>
+                            {
+                                user ?
+                                    <div className='flex items-center gap-4'>
+                                        <Link to={'/profile'}>
+                                            <Avatar>
+                                                <AvatarImage src="https://github.com/shadcn.png" />
+                                                <AvatarFallback>CN</AvatarFallback>
+                                            </Avatar>
+                                        </Link>
+                                        <Link
+                                            to={'/register'}
+                                            onClick={handleLogOut} >
+                                            <Button>Log Out</Button>
+                                        </Link>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Link to={'/register'}>
+                                            <Button>Log In</Button>
+                                        </Link>
+
+                                    </div>
+                            }
+
+
+                        </div>
                     </div>
                 </div>
             </div>
